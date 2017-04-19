@@ -20,6 +20,8 @@ void BST_insert(TreeNode* &rootPtr, int x);
 void BST_pre_order(TreeNode* rootptr);
 void BST_in_order(TreeNode* rootptr);
 void BST_post_order(TreeNode* rootPtr);
+bool BST_search(TreeNode* rootPtr, int x);
+void BST_delete(TreeNode* &rootPtr, int x);
 
 
 int main()
@@ -27,6 +29,9 @@ int main()
 
 	// and awaaaaaayyyy we go!
 	/*
+	// if you insert the numbers in order, 
+	// pre and in order will be the same
+	// post order will be backwards.
 	BST_insert(rootPtr, 1);
 	BST_insert(rootPtr, 2);
 	BST_insert(rootPtr, 3);
@@ -38,6 +43,8 @@ int main()
 	BST_insert(rootPtr, 9);
 	BST_insert(rootPtr, 10);
 	*/
+	// mix it up a little. 
+	// in order will be just that, the values in asc numberical order
 	BST_insert(rootPtr, 2);
 	BST_insert(rootPtr, 7);
 	BST_insert(rootPtr, 4);
@@ -49,11 +56,23 @@ int main()
 	BST_insert(rootPtr, 9);
 	BST_insert(rootPtr, 1);
 
+
+	cout << "InOrder : " << endl;
 	BST_in_order(rootPtr);
 	cout << endl;
+	cout << "PreOrder : " << endl;
 	BST_pre_order(rootPtr);
 	cout << endl;
+	cout << "PostOrder : " << endl;
 	BST_post_order(rootPtr);
+
+	cout << endl;
+	cout << "Is 7 a value in this tree?" << endl;
+	cout << BST_search(rootPtr, 7);
+	cout << endl;
+	cout << "Is 17 a value in this tree?" << endl;
+	cout << BST_search(rootPtr, 17);
+
 
     return 0;
 }
@@ -113,4 +132,23 @@ void BST_post_order(TreeNode* rootPtr) {
 	}
 
 	cout << rootPtr->item << " , ";
+}
+
+bool BST_search(TreeNode* rootPtr, int x) {
+
+	// base case, tree is empty.
+	if (rootPtr == nullptr) {
+		return false;
+	}
+	if (rootPtr->item == x) {
+		return true;
+	}
+	if (BST_search(rootPtr->lptr, x)) {
+		return true;
+	}
+	return BST_search(rootPtr->rptr, x);
+}
+
+void BST_delete(TreeNode* &rootPtr, int x) {
+
 }
